@@ -9,4 +9,4 @@ function globalErrorHandler(
   res.status(500).json({ message: "Sorry! Something went wrong!" });
 }
 
-module.exports = globalErrorHandler;
+export default globalErrorHandler;
