@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 const app = express();
 const port = 3000;
+const globalErrorHandler = require("./middleware/errorHandlerMiddleware");
 
 type Item = {
   id: string;
@@ -78,6 +79,16 @@ app.delete("/items/:id", (req, res) => {
 
   res.status(200).json({ message: "Item deleted successfully", id: reqId });
 });
+
+app.get("/validate-and-fail", (req, res, next) => {
+  const isValid = false;
+  if (!isValid) {
+    throw new Error("Validation failed for the request!");
+  }
+  res.status(200).json({ message: "Validation passed!" });
+});
+
+app.use(globalErrorHandler);
 
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
