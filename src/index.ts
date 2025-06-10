@@ -20,7 +20,6 @@ app.get("/items", (_req, res) => {
 app.get("/items/:id", (req, res) => {
   const storageItem = storage.find((item) => item.id === req.params.id);
 
-  console.log(storageItem);
   if (!storageItem) {
     res.status(404).json({ error: "Invalid id" });
     return;
@@ -44,6 +43,40 @@ app.post("/items", (req, res) => {
 
   storage.push(newItem);
   res.status(201).json(newItem);
+});
+
+app.put("/items/:id", (req, res) => {
+  const reqId = req.params.id;
+  const reqName = req.body.name;
+  const storageItem = storage.find((item) => item.id === reqId);
+
+  if (!storageItem) {
+    res.status(404).json({ error: "Invalid id" });
+    return;
+  }
+
+  if (!reqName) {
+    res.status(400).json({ error: "Name is required" });
+    return;
+  }
+
+  storageItem.name = reqName;
+
+  res.status(200).json(storageItem);
+});
+
+app.delete("/items/:id", (req, res) => {
+  const reqId = req.params.id;
+  const indexToDelete = storage.findIndex((item) => item.id === reqId);
+
+  if (indexToDelete === -1) {
+    res.status(404).json({ error: "Invalid id" });
+    return;
+  }
+
+  storage.splice(indexToDelete, 1);
+
+  res.status(200).json({ message: "Item deleted successfully", id: reqId });
 });
 
 app.listen(port, () => {
