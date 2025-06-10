@@ -17,6 +17,18 @@ app.get("/items", (_req, res) => {
   res.status(200).json(storage);
 });
 
+app.get("/items/:id", (req, res) => {
+  const storageItem = storage.find((item) => item.id === req.params.id);
+
+  console.log(storageItem);
+  if (!storageItem) {
+    res.status(404).json({ error: "Invalid id" });
+    return;
+  }
+
+  res.status(200).json(storageItem);
+});
+
 app.post("/items", (req, res) => {
   const { name } = req.body;
 
