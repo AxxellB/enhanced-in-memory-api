@@ -1,6 +1,7 @@
-# Simple Express TypeScript API
+# Enhanced Express TypeScript API
 
-This is a minimal Express.js REST API written in TypeScript. It supports adding items with a name (using a POST request) and retrieving all stored items (using a GET request).
+This is a basic Express.js REST API written in TypeScript. It supports adding items with a name, retrieving all stored items, retrieving a single item, updating a single item and
+deleting a single ite.
 
 ## Requirements
 
